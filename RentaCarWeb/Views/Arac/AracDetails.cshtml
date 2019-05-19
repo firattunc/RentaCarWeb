@@ -1,0 +1,475 @@
+﻿
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Telefon Rehberi | UserDetails</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/img/favicon.png">
+
+    <!-- Normalize CSS -->
+    <link href="~/Content/css/normalize.css" rel="stylesheet" />
+
+    <!-- Main CSS -->
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animate CSS -->
+    <link href="~/Content/css/animate.min.css" rel="stylesheet" />
+
+    <!-- Font-awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- Owl Caousel CSS -->
+    <link href="~/Scripts/vendor/OwlCarousel/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Scripts/vendor/OwlCarousel/owl.theme.default.min.css" rel="stylesheet" />
+
+    <!-- Nouislider Style CSS -->
+    <link href="~/Content/vendor/noUiSlider/nouislider.min.css" rel="stylesheet" />
+    <!-- Main Menu CSS -->
+    <link href="~/Content/css/meanmenu.min.css" rel="stylesheet" />
+
+    <!-- Datetime Picker Style CSS -->
+    <link href="~/Content/css/jquery.datetimepicker.css" rel="stylesheet" />
+
+    <!-- Select2 min CSS -->
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Switch Style CSS -->
+    <link href="~/Content/css/hover-min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="~/Content/css/style.css" type="text/css" rel="stylesheet" />
+
+    <!-- Modernizr Js -->
+    <script src="~/Scripts/modernizr-2.8.3.min.js"></script>
+    <style>
+        .main-banner2-area {
+            background-image: url("/Content/img/main-banner2.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #preloader {
+            background: #ffffff url('/Content/img/preloader.gif') no-repeat scroll center center;
+            height: 100%;
+            left: 0;
+            overflow: visible;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999999;
+        }
+
+        .sidebar-categories-list li:before {
+            display: none;
+        }
+
+        .user-account-info ul li:before {
+            display: none;
+        }
+
+        .inner-page-main-body .product-details-tab-area .tab-content .product-details-content li:before {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Add your site or application content here -->
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <!-- Main Body Area Start Here -->
+    <div id="wrapper">
+        <!-- Header Area Start Here -->
+        <header>
+
+            <div id="header2" class="header2-area">
+                <div class="header-top-bar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs">
+                                <div class="logo-area">
+                                    <a href="index.htm">
+                                        <img src="logo.png" />logo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-menu-area bg-primaryText" id="sticker">
+                    <div class="container">
+                        <nav id="desktop-nav">
+                            <ul id="sirketMenu">
+                                <li class="active">
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                </li>
+                                @*@foreach (var departman in Model.departmanlar)
+                                {
+                                    <li>
+                                        @Html.ActionLink(departman.deparmanAd, "UserGridDepartman", "User", new { departmanID = departman.departmanID }, new { })
+                                    </li>
+
+                                }*@
+
+
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Area Start -->
+            <div class="mobile-menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mobile-menu">
+                                <nav id="dropdown">
+                                    <ul id="sirketMenu">
+                                        <li class="active">
+                                            @Html.ActionLink("Home", "Index", "Home")
+                                        </li>
+                                        @*@foreach (var departman in Model.departmanlar)
+                                        {
+                                            <li>
+                                                @Html.ActionLink(departman.deparmanAd, "UserGridDepartman", "User", new { departmanID = departman.departmanID }, new { })
+                                            </li>
+
+                                        }*@
+
+
+                                   
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Area End -->
+        </header>
+        <!-- Header Area End Here -->
+        <!-- Main Banner 1 Area Start Here -->
+        <!-- Main Banner 1 Area End Here -->
+        <!-- Inner Page Banner Area Start Here -->
+        <div class="pagination-area bg-secondary">
+            <div class="container">
+                <div class="pagination-wrapper">
+                    <ul>
+                        <li><a href="/Home/Index">Home</a><span> -</span></li>
+                        <li>User Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Inner Page Banner Area End Here -->
+        <!-- Product Details Page Start Here -->
+        <div class="product-details-page bg-secondary">
+            <div class="container">
+                <div class="row">
+                    <div>
+
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+                        <div class="inner-page-main-body">
+                            <div class="single-banner">
+                                <img src="~/Content/AdminContent/img/apple-icon.png" alt="product" class="img-responsive">
+                            </div>
+                            <h2 class="title-inner-default"></h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="para-tag-line" style="font-size:40px"> @*@Model.seciliCalisan.calisanAd @Model.seciliCalisan.calisanSoyad*@</p>
+                                </div>
+                                <div class="product-inner-default col-md-12">
+
+                                </div>
+                            </div>
+
+
+                            <br />
+
+                            <div class="product-details-tab-area">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <ul class="product-details-title">
+                                            <li class="active"><a href="#description" data-toggle="tab" aria-expanded="false">Araç Bilgileri</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade active in" id="description">
+                                                <ul id="aracBilgileri" class="product-details-content">
+                                                    @*<li>Telefon Numarası :</li>
+                                        <li>@Model.seciliCalisan.calisanTel</li>
+                                        <li>Çalıştığı Departman :</li>
+                                        <li>@Model.seciliCalisan.departmanID.deparmanAd</li>
+                                        @if (Model.seciliCalisan.yöneticiID != null)
+                                        {
+                                            <li>Bağlı olduğu Yönetici :</li>
+                                            <li>@Model.seciliCalisan.yöneticiID.calisanAd @Model.seciliCalisan.yöneticiID.calisanSoyad</li>
+                                        }*@
+
+
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane fade" id="review">
+                                                <p>Porem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="add-tags">
+                                                <p>Porem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <div class="fox-sidebar">
+                            <div class="sidebar-item">
+                                <div id="gunlukFiyat" class="sidebar-item-inner">
+                                    <h3 class="sidebar-item-title">Günlük Fiyat</h3>
+
+                                    
+                                </div>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-item-inner">
+                                    <ul class="sidebar-sale-info">
+                                        <li><i class="" aria-hidden="true"></i></li>
+                                        <li id="txtKiralama">
+                                            
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Details Page End Here -->
+            <!-- Footer Area Start Here -->
+            <footer>
+                <div class="footer-area-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="footer-box">
+                                    <h3 class="title-bar-left title-bar-footer">Our Address</h3>
+                                    <ul class="corporate-address">
+                                        <li><i class="fa fa-map-marker" aria-hidden="true"></i><a href="Phone(01)800433633">Turgutlu/Manisa , Turkey</a></li>
+                                        <li><i class="fa fa-phone" aria-hidden="true"></i>+90 05322222222</li>
+                                        <li><i class="fa fa-fax" aria-hidden="true"></i>+90-212-3102416</li>
+                                        <li><i class="fa fa-envelope-o" aria-hidden="true"></i>firat_yzm17@outlook.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="footer-box">
+                                    <h3 class="title-bar-left title-bar-footer">Need Help?</h3>
+                                    <ul class="featured-links">
+                                        <li>
+                                            <ul>
+                                                <li>@Html.ActionLink("Help", "Help", "Home")</li>
+
+                                                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="footer-box">
+                                    <h3 class="title-bar-left title-bar-footer">Follow Us On</h3>
+                                    <ul class="footer-social">
+                                        <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-area-bottom">
+                    <div class="container">
+                        <p>2019 Telefon Rehberi Uygulaması . Made by Asp.NET MVC.</p>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer Area End Here -->
+        </div>
+        <!-- Main Body Area End Here -->
+        <!-- jquery-->
+        <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+
+        <!-- Plugins js -->
+        <script src="~/Scripts/plugins.js"></script>
+
+        <!-- Bootstrap js -->
+        <script src="~/Scripts/bootstrap.min.js"></script>
+
+        <!-- WOW JS -->
+        <script src="~/Scripts/wow.min.js"></script>
+
+        <!-- Owl Cauosel JS -->
+        <script src="~/Scripts/vendor/OwlCarousel/owl.carousel.min.js"></script>
+
+        <!-- Meanmenu Js -->
+        <script src="~/Scripts/jquery.meanmenu.min.js"></script>
+
+        <!-- Srollup js -->
+        <script src="~/Scripts/jquery.scrollUp.min.js"></script>
+
+        <!-- jquery.counterup js -->
+        <script src="~/Scripts/jquery.counterup.min.js"></script>
+        <script src="~/Scripts/waypoints.min.js"></script>
+
+        <!-- Isotope js -->
+        <script src="~/Scripts/isotope.pkgd.min.js"></script>
+
+        <!-- Nouislider Js -->
+        <script src="vendor\noUiSlider\nouislider.min.js" type="text/javascript"></script>
+
+        <!-- Gridrotator js -->
+        <script src="~/Content/vendor/noUiSlider/nouislider.min.js"></script>
+
+        <!--Select2 js-->
+        <script src="~/Content/js/select2.min.js"></script>
+
+        <!-- Custom Js -->
+        <script src="~/Scripts/main.js"></script>
+</body>
+</html>
+<script>    
+    $(function myfunction() {
+        //parametrediki id'yi alma
+        function getParameterByName(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+            results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+       
+        var id = getParameterByName('aracId');
+        //seciliArac
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:25667/api/Arac/" + id,
+            async: false,
+            dataType: "JSON",
+            success: function (data) {
+
+                $.each(data.Data, function (index, val) {
+                    $("#gunlukFiyat").append('' + val.gunlukFiyat + '');
+                    $("#aracBilgileri").append('<li>Araç Adı :</li>' + '<li>' + val.aracAdi + '</li>' + '<li>Günlük Fiyat :</li>' + '<li>' + val.gunlukFiyat + '</li>' + '<li>Anlık Km :</li>' + '<li>' + val.anlikKm + '</li>' + '<li>Kiralanabilme Durumu :</li>' + '<li>' + val.aracDurum + '</li>');
+                    //txtKiralama yazılıyor
+                    if (val.aracDurum == true) {
+                        $("#txtKiralama").append('<button id="btnKirala" style="width:200px;height:50px;" class="btn-success">Kiralama İsteği Gönder</button>');
+                    }
+                    else {
+                        $("#txtKiralama").append('<p style="color:red">Kiralanamaz</p>');
+                    }
+                })
+
+                
+            }
+           
+        })
+        
+        //Sirketleri Listele
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:25667/api/Sirket",
+            async:false,
+            dataType: "JSON",
+
+            success: function (data) {
+
+                console.log(data);
+                $.each(data.Data, function (index, val) {
+
+
+                    $("#sirketMenu").append('<li><a href="/Arac/AracGrid?sirketId=' + val.Id + '">' + val.sirketAdi + '</a></li>');
+                   
+
+
+
+                })
+            }
+        })
+        //Kiralama isteği
+        $("#btnKirala").click(function myfunction() {
+
+            var btn = $("#btnKirala");
+            var currentdate = new Date();
+            var datetime = currentdate.getFullYear() + "-"
+                + (currentdate.getMonth() + 1) + "-"
+                + currentdate.getDate() + " "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes();
+
+            //Kiralanabilme Durumunu Güncelle
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:25667/api/Arac/" + id,
+                async: false,
+                data: {
+                    Id: id, "aracDurum": false
+                },
+                dataType: "JSON",
+                success: function (data) {
+
+
+                }
+
+            })
+
+
+            //Kiralama tablosuna yaz
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25667/api/Kiralama",
+                data: {
+                    "kiralamaTarihi": datetime, "odenenTutar": "0", "Musteri": { Id: 3 }, "Arac": { Id: id },"Calisan":[]
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    alert('Wow this actually worked');
+                }
+               
+            })
+            btn.text("İstek Gönderildi");
+            btn.attr({
+                disabled:"disabled"
+            });
+            
+            
+        });
+        
+    });
+</script>

@@ -1,0 +1,232 @@
+﻿@{ 
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Dashboard  </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link href="~/Content/AdminContent/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/AdminContent/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/AdminContent/vendor/linearicons/style.css" rel="stylesheet" />
+    <link href="~/Content/AdminContent/vendor/chartist/css/chartist-custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- MAIN CSS -->
+    <link href="~/Content/AdminContent/css/main.css" rel="stylesheet" />
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link href="~/Content/AdminContent/css/demo.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="icon" type="image/png" sizes="96x96" href="~/Content/AdminContent/img/favicon.png">
+</head>
+<body>
+    <!-- WRAPPER -->
+    <div id="wrapper">
+        <!-- NAVBAR -->
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="brand">
+                <a href="index.html"><img alt="Logo" class="img-responsive logo"></a>
+            </div>
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+                </div>
+                <form class="navbar-form navbar-left"></form>
+
+                <div id="navbar-menu">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" <span>@*@Model.admin.adminAd*@</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+
+                            <ul class="dropdown-menu">
+                                @*@using (Html.BeginForm())
+                                {
+
+                                    <li><button style="width:200px;height:50px;background-color:white;color:black;" name="btnLogout"><i class="lnr lnr-exit"></i> <span>Logout</span></button></li>
+                                }*@
+                            </ul>
+
+                        </li>
+                    </ul>
+
+
+
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- END NAVBAR -->
+        <!-- LEFT SIDEBAR -->
+        <div id="sidebar-nav" class="sidebar">
+            <div class="sidebar-scroll">
+                <nav>
+                    <ul class="nav">
+                        <li><a href="/Admin/AdminNotification" class="active"><i class="lnr lnr-alarm"></i> <span>Kiralama İstekleri</span></a></li>
+                        <li>
+                            <a href="/Admin/AdminKategori" class="">Araç Teslimi</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- END LEFT SIDEBAR -->
+        <!-- MAIN -->
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container-fluid">
+                    <!-- OVERVIEW -->
+                    <div class="panel panel-headline">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Beklemede Olan Kiralama İstekleri</h3>
+                            <p class="panel-subtitle">@DateTime.Now</p>
+                        </div>
+                        <div class="panel-body">
+                            <div id="listIstek" class="row">
+
+
+                                    <div style="color:red" class="col-md-3">Araç Adı</div>
+                                    <div style="color:red" class="col-md-3">İstek Tarihi</div>
+                                    <div style="color:red" class="col-md-3">Müşteri Id</div>
+                                    <button id="btnOnay" class="btn-success">Onayla</button>
+                                    <button id="btnRed" class="btn-danger">Reddet</button>
+                                </div>                                            
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END OVERVIEW -->
+
+
+
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN -->
+        <div class="clearfix"></div>
+        <footer>
+            <div class="container-fluid">
+                <p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <!-- END WRAPPER -->
+    <!-- Javascript -->
+    <script src="~/Content/AdminContent/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/AdminContent/vendor/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
+<script>
+    $(function () {
+
+        var dizi = [];
+        var id;
+        var currentdate = new Date();
+        var datetime = currentdate.getFullYear() + "-"
+            + (currentdate.getMonth() + 1) + "-"
+            + currentdate.getDate() + " "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes();
+        function listIstek() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:25667/api/Kiralama",
+                dataType: "JSON",
+                success: function (data) {
+
+                    console.log(data);
+                    $.each(data.Data, function (index, val) {
+
+
+                        $("#listIstek").append(' <div class="col-md-12"> <div id="aracAdi" class="col-md-3">' + val.Arac.aracAdi + '</div><div class="col-md-3">' + val.kiralamaTarihi + '</div><div class="col-md-3">' + val.Musteri.Id + '</div></div>');
+
+
+
+                    })
+                }
+
+            })
+        }
+        listIstek();
+        $("#btnOnay").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:25667/api/Kiralama",
+                dataType: "JSON",               
+                success: function (data) {
+
+                    console.log(data);
+                    $.each(data.Data, function (index, val) {
+
+                        $.ajax({
+                            type: "PUT",
+                            url: "http://localhost:25667/api/Kiralama/" + val.Id,
+                            dataType: "JSON",
+                            data: {
+                                "Calisan": { Id: 93 }, "kiralamaTarihi": datetime
+                            },
+                            success: function (data) {
+
+                                location.reload();
+                               
+                                
+                            }
+
+                        })
+                        
+                        return false;
+                    })
+                   
+                }
+                
+            })
+           
+            
+
+
+        });
+        $("#btnRed").click(function myfunction() {
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:25667/api/Kiralama",
+                dataType: "JSON",
+                success: function (data) {
+
+                    console.log(data);
+                    $.each(data.Data, function (index, val) {
+
+                        $.ajax({
+                            type: "DELETE",
+                            url: "http://localhost:25667/api/Kiralama/" + val.Id,
+                            dataType: "JSON",
+                            success: function (data) {
+
+                                location.reload();
+
+                            }
+
+                        })
+
+                        return false;
+                    })
+
+                }
+
+            })
+
+
+        });
+
+
+    });
+</script>

@@ -44,7 +44,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RentCar.Business">
+      <HintPath>..\..\RentCar\RentCar.Business\bin\Debug\RentCar.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="RentCar.Entities">
+      <HintPath>..\..\RentCar\RentCar.Business\bin\Debug\RentCar.Entities.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -89,19 +101,190 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminContent\css\bootstrap.css" />
+    <Content Include="Content\AdminContent\css\bootstrap.min.css" />
+    <Content Include="Content\AdminContent\css\demo.css" />
+    <Content Include="Content\AdminContent\css\main.css" />
+    <Content Include="Content\AdminContent\img\apple-icon.png" />
+    <Content Include="Content\AdminContent\img\favicon.png" />
+    <Content Include="Content\AdminContent\img\login-bg.jpg" />
+    <Content Include="Content\AdminContent\img\logo-dark.png" />
+    <Content Include="Content\AdminContent\img\profile-bg.png" />
+    <Content Include="Content\AdminContent\img\user-medium.png" />
+    <Content Include="Content\AdminContent\img\user.png" />
+    <Content Include="Content\AdminContent\img\user1.png" />
+    <Content Include="Content\AdminContent\img\user2.png" />
+    <Content Include="Content\AdminContent\img\user3.png" />
+    <Content Include="Content\AdminContent\img\user4.png" />
+    <Content Include="Content\AdminContent\img\user5.png" />
+    <Content Include="Content\AdminContent\scripts\klorofil-common.js" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\js\npm.js" />
+    <Content Include="Content\AdminContent\vendor\chartist\css\chartist-custom.css" />
+    <Content Include="Content\AdminContent\vendor\chartist\css\chartist.css" />
+    <Content Include="Content\AdminContent\vendor\chartist\css\chartist.min.css" />
+    <Content Include="Content\AdminContent\vendor\chartist\js\chartist.js" />
+    <Content Include="Content\AdminContent\vendor\chartist\js\chartist.min.js" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\AdminContent\vendor\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="Content\AdminContent\vendor\jquery-slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="Content\AdminContent\vendor\jquery.easy-pie-chart\angular.easypiechart.js" />
+    <Content Include="Content\AdminContent\vendor\jquery.easy-pie-chart\angular.easypiechart.min.js" />
+    <Content Include="Content\AdminContent\vendor\jquery.easy-pie-chart\easypiechart.js" />
+    <Content Include="Content\AdminContent\vendor\jquery.easy-pie-chart\easypiechart.min.js" />
+    <Content Include="Content\AdminContent\vendor\jquery.easy-pie-chart\jquery.easypiechart.js" />
+    <Content Include="Content\AdminContent\vendor\jquery.easy-pie-chart\jquery.easypiechart.min.js" />
+    <Content Include="Content\AdminContent\vendor\jquery\jquery.js" />
+    <Content Include="Content\AdminContent\vendor\jquery\jquery.min.js" />
+    <Content Include="Content\AdminContent\vendor\linearicons\fonts\Linearicons-Free.svg" />
+    <Content Include="Content\AdminContent\vendor\linearicons\style.css" />
+    <Content Include="Content\AdminContent\vendor\toastr\toastr.css" />
+    <Content Include="Content\AdminContent\vendor\toastr\toastr.js" />
+    <Content Include="Content\AdminContent\vendor\toastr\toastr.min.css" />
+    <Content Include="Content\AdminContent\vendor\toastr\toastr.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\animate.min.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\demo.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\hover-min.css" />
+    <Content Include="Content\css\jquery.datetimepicker.css" />
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\meanmenu.min.css" />
+    <Content Include="Content\css\normalize.css" />
+    <Content Include="Content\css\reImageGrid.css" />
+    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\isotope.pkgd.min.js" />
+    <Content Include="Content\js\jquery-2.2.4.min.js" />
+    <Content Include="Content\js\jquery.counterup.min.js" />
+    <Content Include="Content\js\jquery.datetimepicker.full.min.js" />
+    <Content Include="Content\js\jquery.gridrotator.js" />
+    <Content Include="Content\js\jquery.meanmenu.min.js" />
+    <Content Include="Content\js\jquery.scrollUp.min.js" />
+    <Content Include="Content\js\main.js" />
+    <Content Include="Content\js\modernizr-2.8.3.min.js" />
+    <Content Include="Content\js\plugins.js" />
+    <Content Include="Content\js\select2.min.js" />
+    <Content Include="Content\js\validator.min.js" />
+    <Content Include="Content\js\waypoints.min.js" />
+    <Content Include="Content\js\wNumb.js" />
+    <Content Include="Content\js\wow.min.js" />
+    <Content Include="Content\scripts\klorofil-common.js" />
+    <Content Include="Content\vendor\noUiSlider\nouislider.min.css" />
+    <Content Include="Content\vendor\noUiSlider\nouislider.min.js" />
+    <Content Include="Content\vendor\OwlCarousel\owl.carousel.min.css" />
+    <Content Include="Content\vendor\OwlCarousel\owl.carousel.min.js" />
+    <Content Include="Content\vendor\OwlCarousel\owl.theme.default.min.css" />
+    <Content Include="Content\vendor\OwlCarousel\owl.video.play.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\fonts\fontawesome-webfont-1.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\AdminContent\css\demo.css.map" />
+    <Content Include="Content\AdminContent\css\main.css.map" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\AdminContent\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\AdminContent\vendor\chartist\css\chartist-custom.css.map" />
+    <Content Include="Content\AdminContent\vendor\chartist\map\chartist.css.map" />
+    <Content Include="Content\AdminContent\vendor\chartist\map\chartist.min.js.map" />
+    <Content Include="Content\AdminContent\vendor\chartist\scss\chartist.scss" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\AdminContent\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\AdminContent\vendor\jquery\jquery.min.map" />
+    <Content Include="Content\AdminContent\vendor\linearicons\fonts\Linearicons-Free.eot" />
+    <Content Include="Content\AdminContent\vendor\linearicons\fonts\Linearicons-Free.ttf" />
+    <Content Include="Content\AdminContent\vendor\linearicons\fonts\Linearicons-Free.woff" />
+    <Content Include="Content\AdminContent\vendor\linearicons\fonts\Linearicons-Free.woff2" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\isotope.pkgd.min.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
+    <Content Include="Scripts\jquery.counterup.min.js" />
+    <Content Include="Scripts\jquery.datetimepicker.full.min.js" />
+    <Content Include="Scripts\jquery.gridrotator.js" />
+    <Content Include="Scripts\jquery.meanmenu.min.js" />
+    <Content Include="Scripts\jquery.scrollUp.min.js" />
+    <Content Include="Scripts\klorofil-common.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\modernizr-2.8.3.min.js" />
+    <Content Include="Scripts\plugins.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\validator.min.js" />
+    <Content Include="Scripts\vendor\noUiSlider\nouislider.min.css" />
+    <Content Include="Scripts\vendor\noUiSlider\nouislider.min.js" />
+    <Content Include="Scripts\vendor\OwlCarousel\owl.carousel.min.css" />
+    <Content Include="Scripts\vendor\OwlCarousel\owl.carousel.min.js" />
+    <Content Include="Scripts\vendor\OwlCarousel\owl.theme.default.min.css" />
+    <Content Include="Scripts\vendor\OwlCarousel\owl.video.play.png" />
+    <Content Include="Scripts\waypoints.min.js" />
+    <Content Include="Scripts\wNumb.js" />
+    <Content Include="Scripts\wow.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AracController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Admin\AdminViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Home\ErrorPage.cshtml" />
+    <Content Include="Views\Arac\AracGrid.cshtml" />
+    <Content Include="Views\Arac\AracDetails.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\MusteriSorgu.cshtml" />
+    <Content Include="Views\Admin\SirketEkle.cshtml" />
+    <Content Include="Views\Admin\AracEkle.cshtml" />
+    <Content Include="Views\Admin\AdminLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,8 +294,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
