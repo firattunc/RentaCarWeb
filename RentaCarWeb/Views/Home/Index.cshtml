@@ -118,6 +118,69 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                <ul class="profile-notification">
+
+
+                                    @if (Convert.ToInt32(Session["loginMusteri"]) == 1)
+                                    {
+
+                                        <li>
+                                            <div class="user-account-info">
+                                                <div class="user-account-info-controler">
+                                                    <div class="user-account-title">
+                                                        <div class="user-account-name">@Session["musteriAd"]</div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                        using (Html.BeginForm())
+                                        {
+                                            <li><button class="apply-now-btn" href="#" id="logout-button" type="submit" value="isLogin" name="btnLogout">Logout</button></li>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <div class="apply-btn-area">
+                                                <a class="apply-now-btn" href="#" id="login-button">Login</a>
+                                                <div class="login-form" id="login-form" style="display: none;">
+                                                    <h2>Login</h2>
+
+                                                    @using (Html.BeginForm())
+                                                    {
+                                                        <input name="id" class="form-control" type="text" placeholder="Name">
+                                                        <input name="sifre" class="form-control" type="password" placeholder="Password">
+                                                        <button class="btn-login" type="submit" value="isLogin" name="btnLogin">Login</button>
+
+                                                        <div class="remember-lost">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox"> Remember me</label>
+                                                            </div>
+                                                            <a class="lost-password" href="#">Lost Your Password?</a>
+                                                        </div>
+                                                        <button class="cross-btn form-cancel" type="submit" value=""><i class="fa fa-times" aria-hidden="true"></i></button>
+
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+
+
+
+
+
+
+
+
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -153,13 +216,6 @@
                                         <li class="active">
                                             @Html.ActionLink("Home", "Index", "Home")
                                         </li>
-                                        @*@foreach (var departman in Model.departmanlar)
-                                        {
-                                            <li>
-                                                @Html.ActionLink(departman.deparmanAd, "UserGridDepartman", "User", new { departmanID = departman.departmanID }, new { })
-                                            </li>
-
-                                        }*@
 
 
                                         <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -186,7 +242,7 @@
                 </div>
             </div>
         </div>
-        <!-- Main Banner 1 Area End Here -->
+        <!-- Main Banner 1 Area End Here -->i
         <!-- Newest Employee Area Start Here -->
         <div class="newest-products-area bg-secondary section-space-default">
             <div class="container">

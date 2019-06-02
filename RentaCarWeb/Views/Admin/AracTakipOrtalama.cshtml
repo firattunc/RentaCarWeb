@@ -1,6 +1,6 @@
 ﻿@using RentaCarWeb.ViewModels.Admin
 @model AdminViewModels
-@{ 
+@{
     Layout = null;
 }
 <!doctype html>
@@ -24,10 +24,8 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
     <link rel="icon" type="image/png" sizes="96x96" href="~/Content/AdminContent/img/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
-@{ 
-    int id = Convert.ToInt32(Session["kullaniciId"]);
-}
 <body>
     <!-- WRAPPER -->
     <div id="wrapper">
@@ -73,9 +71,12 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="/Admin/Index" class="active"><i class="lnr lnr-alarm"></i> <span>Kiralama İstekleri</span></a></li>
+                        <li><a href="/Admin/GelirGider" class="active"><i class="lnr lnr-alarm"></i> <span>Gelir Gider</span></a></li>
                         <li>
-                            <a href="/Admin/AracTeslim" class="">Araç Teslimi</a>
+                            <a href="/Admin/AracTakipOrtalama" class="">Araç Takip Ortalama</a>
+                        </li>
+                        <li>
+                            <a href="/Admin/GunlukKmSorgu" class="">Gunluk Km Sorgu</a>
                         </li>
                     </ul>
                 </nav>
@@ -90,21 +91,14 @@
                     <!-- OVERVIEW -->
                     <div class="panel panel-headline">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Beklemede Olan Kiralama İstekleri</h3>
-                            <p class="panel-subtitle">@DateTime.Now</p>
+                            <h3 class="panel-title">Günlük Km'sini Aşan Araçlar</h3>
+                            <p class="panel-subtitle">Date: @DateTime.Now</p>
                         </div>
                         <div class="panel-body">
-                            <div id="listIstek" class="row">
+
+                            <canvas id="mycanvas" width="300" height="200"></canvas>
 
 
-                                    <div style="color:red" class="col-md-3">Araç Adı</div>
-                                    <div style="color:red" class="col-md-3">İstek Tarihi</div>
-                                    <div style="color:red" class="col-md-3">Müşteri Id</div>
-                                    <button id="btnOnay" class="btn-success">Onayla</button>
-                                    <button id="btnRed" class="btn-danger">Reddet</button>
-                                </div>                                            
-                                
-                            </div>
                         </div>
                     </div>
                     <!-- END OVERVIEW -->
@@ -127,127 +121,86 @@
     <!-- Javascript -->
     <script src="~/Content/AdminContent/vendor/jquery/jquery.min.js"></script>
     <script src="~/Content/AdminContent/vendor/bootstrap/js/bootstrap.min.js"></script>
-    
+    <script src="~/Content/AdminContent/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/AdminContent/vendor/jquery.easy-pie-chart/easypiechart.min.js"></script>
+    <script src="~/Content/AdminContent/vendor/chartist/js/chartist.min.js"></script>
+    <script src="~/Content/AdminContent/scripts/klorofil-common.js"></script>
+
+
+
 </body>
 </html>
 <script>
     $(function () {
-        var calisanId = @id;
-        var dizi = [];
         var id;
-        var currentdate = new Date();
-        var datetime = currentdate.getFullYear() + "-"
-            + (currentdate.getMonth() + 1) + "-"
-            + currentdate.getDate() + " "
-            + currentdate.getHours() + ":"
-            + currentdate.getMinutes();
-        function listIstek() {
+        // create initial empty chart
+        var ctx_live = document.getElementById("mycanvas");
+        var myChart = new Chart(ctx_live, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    borderWidth: 1,
+                    borderColor: '#00c0ef',
+                    label: 'liveCount',
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "Chart.js - Dynamically Update Chart Via Ajax Requests",
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            }
+        });
+
+
+        // logic to get new data
+        var getData = function () {
+
             $.ajax({
                 type: "GET",
-                url: "http://localhost:25667/api/Kiralama",
                 dataType: "JSON",
+                url: 'http://localhost:25667/api/AracTakip/',
                 success: function (data) {
-
-                    console.log(data);
+                    var id;
                     $.each(data.Data, function (index, val) {
 
-
-                        $("#listIstek").append(' <div class="col-md-12"> <div id="aracAdi" class="col-md-3">' + val.Arac.aracAdi + '</div><div class="col-md-3">' + val.kiralamaTarihi + '</div><div class="col-md-3">' + val.Musteri.Id + '</div></div>');
-
+                        if (val.gunlukKm > 480) {
+                            myChart.data.labels.push(val.Arac.Id);
+                            myChart.data.datasets[0].data.push(val.gunlukKm);
+                        }
 
 
                     })
-                }
+                    myChart.update();
 
-            })
+                }
+            });
+        };
+        var clear = function () {
+            for (var i = 0; i < 30; i++) {
+                myChart.data.labels.pop();
+                myChart.data.datasets[0].data.pop();
+            }
         }
-        listIstek();
-        $("#btnOnay").click(function () {
-           //Kiralama isteğini onayla
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:25667/api/Kiralama",
-                dataType: "JSON",               
-                success: function (data) {
 
-                    console.log(data);
-                    $.each(data.Data, function (index, val) {
-
-                        $.ajax({
-                            type: "PUT",
-                            url: "http://localhost:25667/api/Kiralama/" + val.Id,
-                            dataType: "JSON",
-                            data: {
-                                "Calisan": { Id: calisanId }, "kiralamaTarihi": datetime
-                            },
-                            success: function (data) {
-
-                                location.reload();
-                               
-                                
-                            }
-
-                        })
-                        
-                        return false;
-                    })
-                   
-                }
-                
-            })
-          
-            
+        clear();
+        getData();
 
 
-        });
-        $("#btnRed").click(function myfunction() {
 
-            //Kiralama isteğini reddet
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:25667/api/Kiralama",
-                dataType: "JSON",
-                success: function (data) {
-
-                    
-                    $.each(data.Data, function (index, val) {
-                        //Arac Durumunu güncelle
-                        $.ajax({
-                            type: "PUT",
-                            url: "http://localhost:25667/api/Arac/" + val.Arac.Id,
-                            async:false,
-                            data: {
-                                Id: val.Arac.Id, "aracDurum": true
-                            },
-                            dataType: "JSON",
-                            success: function (data) {
-
-
-                            }
-
-                        })
-                        $.ajax({
-                            type: "DELETE",
-                            url: "http://localhost:25667/api/Kiralama/" + val.Id,
-                            dataType: "JSON",
-                            success: function (data) {
-
-                                
-                                location.reload();
-
-                            }
-
-                        })
-
-                        return false;
-                    })
-
-                }
-
-            })
-           
-
-        });
 
 
     });

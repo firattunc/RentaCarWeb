@@ -84,6 +84,13 @@
     </style>
 
 </head>
+@{ 
+    int musteriId= 0;
+    if (Convert.ToInt32( Session["musteriId"])!=0)
+    {
+        musteriId = Convert.ToInt32(Session["musteriId"]);
+    }
+}
 <body>
 
     <!-- Add your site or application content here -->
@@ -105,6 +112,31 @@
                                         <img src="logo.png" />logo
                                     </a>
                                 </div>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+
+                                <ul class="profile-notification">
+                                    @if (Convert.ToInt32(Session["loginMusteri"]) == 1)
+                                    {
+
+                                        <li>
+                                            <div class="user-account-info">
+                                                <div class="user-account-info-controler">
+                                                    <div class="user-account-title">
+                                                        <div class="user-account-name">@Session["musteriAd"]</div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                        using (Html.BeginForm())
+                                        {
+                                            <li><button class="apply-now-btn" href="#" id="logout-button" type="submit" value="isLogin" name="btnLogout">Logout</button></li>
+                                        }
+
+                                    }
+                                </ul>
+
                             </div>
                         </div>
                     </div>
@@ -143,13 +175,6 @@
                                         <li class="active">
                                             @Html.ActionLink("Home", "Index", "Home")
                                         </li>
-                                        @*@foreach (var departman in Model.departmanlar)
-                                        {
-                                            <li>
-                                                @Html.ActionLink(departman.deparmanAd, "UserGridDepartman", "User", new { departmanID = departman.departmanID }, new { })
-                                            </li>
-
-                                        }*@
 
 
                                    
@@ -213,19 +238,10 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <div class="tab-content">
                                             <div class="tab-pane fade active in" id="description">
-                                                <ul id="aracBilgileri" class="product-details-content">
-                                                    @*<li>Telefon Numarası :</li>
-                                        <li>@Model.seciliCalisan.calisanTel</li>
-                                        <li>Çalıştığı Departman :</li>
-                                        <li>@Model.seciliCalisan.departmanID.deparmanAd</li>
-                                        @if (Model.seciliCalisan.yöneticiID != null)
-                                        {
-                                            <li>Bağlı olduğu Yönetici :</li>
-                                            <li>@Model.seciliCalisan.yöneticiID.calisanAd @Model.seciliCalisan.yöneticiID.calisanSoyad</li>
-                                        }*@
+                                               
+                                                    <ul id="aracBilgileri" class="product-details-content"></ul>
+                                                
 
-
-                                                </ul>
                                             </div>
                                             <div class="tab-pane fade" id="review">
                                                 <p>Porem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.</p>
@@ -248,19 +264,26 @@
                                 <div id="gunlukFiyat" class="sidebar-item-inner">
                                     <h3 class="sidebar-item-title">Günlük Fiyat</h3>
 
-                                    
+
                                 </div>
                             </div>
-                            <div class="sidebar-item">
-                                <div class="sidebar-item-inner">
-                                    <ul class="sidebar-sale-info">
-                                        <li><i class="" aria-hidden="true"></i></li>
-                                        <li id="txtKiralama">
-                                            
-                                        </li>
-                                    </ul>
+                            @if (Convert.ToInt32(Session["loginMusteri"]) == 1)
+                            {
+                                <div class="sidebar-item">
+                                    <div class="sidebar-item-inner">
+                                        <ul class="sidebar-sale-info">
+                                            <li><i class="" aria-hidden="true"></i></li>
+
+                                            <li id="txtKiralama">
+
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+
 
                         </div>
                     </div>
@@ -364,6 +387,7 @@
 </html>
 <script>    
     $(function myfunction() {
+        var musteriId=@musteriId;
         //parametrediki id'yi alma
         function getParameterByName(name) {
             var url = window.location.href;
@@ -455,7 +479,7 @@
                 type: "POST",
                 url: "http://localhost:25667/api/Kiralama",
                 data: {
-                    "kiralamaTarihi": datetime, "odenenTutar": "0", "Musteri": { Id: 3 }, "Arac": { Id: id },"Calisan":[]
+                    "kiralamaTarihi": datetime, "odenenTutar": "0", "Musteri": { Id: musteriId }, "Arac": { Id: id }, "Calisan": []
                 },
                 dataType: "JSON",
                 success: function (data) {

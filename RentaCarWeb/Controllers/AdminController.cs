@@ -12,22 +12,100 @@ namespace RentaCarWeb.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index(string btnLogout)
         {
-            return View();
+            if (Convert.ToInt32(Session["loginCalisan"]) == 0)
+            {
+                return RedirectToAction("AdminLogin", "Admin");
+            }
+            AdminViewModels modelCalisan = new AdminViewModels();
+            RentCar.Business.KullaniciBusiness k = new KullaniciBusiness();
+            int kullaniciId = Convert.ToInt32( Session["kullaniciId"]);
+            Kullanici calisan = k.SelectKullaniciById(kullaniciId);
+            modelCalisan.admin = calisan;
+            if (btnLogout!=null)
+            {
+                Session["loginCalisan"] = 0;
+                return RedirectToAction("AdminLogin", "Admin");
+
+            }
+            return View(modelCalisan);
         }
-        public ActionResult MusteriSorgu()
+        public ActionResult GunlukKmSorgu(string btnLogout)
         {
-            return View();
+            if (Convert.ToInt32(Session["loginAdmin"]) == 0)
+            {
+                return RedirectToAction("AdminLogin", "Admin");
+            }
+            AdminViewModels modelAdmin = new AdminViewModels();
+            RentCar.Business.KullaniciBusiness k = new KullaniciBusiness();
+            int kullaniciId = Convert.ToInt32(Session["kullaniciId"]);
+            Kullanici admin = k.SelectKullaniciById(kullaniciId);
+            modelAdmin.admin = admin;
+            if (btnLogout != null)
+            {
+                Session["loginAdmin"] = 0;
+                return RedirectToAction("AdminLogin", "Admin");
+
+            }
+            return View(modelAdmin);
         }
-        public ActionResult SirketEkle()
+        public ActionResult GelirGider(string btnLogout)
         {
-            return View();
+            if (Convert.ToInt32(Session["loginAdmin"]) == 0)
+            {
+                return RedirectToAction("AdminLogin", "Admin");
+            }
+            AdminViewModels modelAdmin = new AdminViewModels();
+            RentCar.Business.KullaniciBusiness k = new KullaniciBusiness();
+            int kullaniciId = Convert.ToInt32(Session["kullaniciId"]);
+            Kullanici admin = k.SelectKullaniciById(kullaniciId);
+            modelAdmin.admin = admin;
+            if (btnLogout != null)
+            {
+                Session["loginAdmin"] = 0;
+                return RedirectToAction("AdminLogin", "Admin");
+
+            }
+            return View(modelAdmin);
         }
-        public ActionResult AracEkle()
+        public ActionResult AracTakipOrtalama(string btnLogout)
         {
-            
-            return View();
+            if (Convert.ToInt32(Session["loginAdmin"]) == 0)
+            {
+                return RedirectToAction("AdminLogin", "Admin");
+            }
+            AdminViewModels modelAdmin = new AdminViewModels();
+            RentCar.Business.KullaniciBusiness k = new KullaniciBusiness();
+            int kullaniciId = Convert.ToInt32(Session["kullaniciId"]);
+            Kullanici admin = k.SelectKullaniciById(kullaniciId);
+            modelAdmin.admin = admin;
+            if (btnLogout != null)
+            {
+                Session["loginAdmin"] = 0;
+                return RedirectToAction("AdminLogin", "Admin");
+
+            }
+            return View(modelAdmin);
+        }
+        public ActionResult AracTeslim(string btnLogout)
+        {
+            if (Convert.ToInt32(Session["loginCalisan"]) == 0)
+            {
+                return RedirectToAction("AdminLogin", "Admin");
+            }
+            AdminViewModels modelCalisan = new AdminViewModels();
+            RentCar.Business.KullaniciBusiness k = new KullaniciBusiness();
+            int kullaniciId = Convert.ToInt32(Session["kullaniciId"]);
+            Kullanici calisan = k.SelectKullaniciById(kullaniciId);
+            modelCalisan.admin = calisan;
+            if (btnLogout != null)
+            {
+                Session["loginCalisan"] = 0;
+                return RedirectToAction("AdminLogin", "Admin");
+
+            }
+            return View(modelCalisan);
         }
         // GET: Admin
         public ActionResult AdminLogin()
@@ -37,19 +115,29 @@ namespace RentaCarWeb.Controllers
         [HttpPost]
         public ActionResult AdminLogin(string kullaniciAd,string kullaniciPassword)
         {
-            AdminViewModels model = new AdminViewModels();
             var kullaniciBusiness = new KullaniciBusiness();
-            List<Kullanici> adminler = kullaniciBusiness.SelectAllKullaniciByRoleId(2);
+            List<Kullanici> kullanicilar = kullaniciBusiness.listele();
 
-            foreach (var item in adminler)
+            foreach (var item in kullanicilar)
             {
                 if (item.kullaniciAdi==kullaniciAd&&item.sifre==kullaniciPassword)
                 {
-                    model.admin = item;
-                    Session["loginDurum"] = 1;
-                    Session["admin"] = item;
-                    Session["adminId"] = item.Id;
-                    return RedirectToAction("Index", "Admin");
+         
+                  
+                    Session["kullaniciId"] = item.Id;
+                    if (item.role.RoleAd=="admin")
+                    {
+                        Session["loginAdmin"] = 1;
+                        Session["loginCalisan"] = 0;
+                        return RedirectToAction("GelirGider", "Admin");
+                    }
+                    else
+                    {
+                        Session["loginCalisan"] = 1;
+                        Session["loginAdmin"] = 0;
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    
                 }
             }
 

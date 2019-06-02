@@ -1,4 +1,5 @@
-﻿
+﻿@using RentaCarWeb.ViewModels.Admin
+@model AdminViewModels
 @{
     Layout = null;
 }
@@ -23,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
     <link rel="icon" type="image/png" sizes="96x96" href="~/Content/AdminContent/img/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
     <!-- WRAPPER -->
@@ -43,14 +45,14 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" <span>@*@Model.admin.adminAd*@</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span>@Model.admin.adSoyad</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 
                             <ul class="dropdown-menu">
-                                @*@using (Html.BeginForm())
-                                    {
+                                @using (Html.BeginForm())
+                                {
 
-                                        <li><button style="width:200px;height:50px;background-color:white;color:black;" name="btnLogout"><i class="lnr lnr-exit"></i> <span>Logout</span></button></li>
-                                    }*@
+                                    <li><button style="width:200px;height:50px;background-color:white;color:black;" name="btnLogout"><i class="lnr lnr-exit"></i> <span>Logout</span></button></li>
+                                }
                             </ul>
 
                         </li>
@@ -69,16 +71,12 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="/Admin/AdminIndex" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                        <li><a href="/Admin/AdminNotification" class="active"><i class="lnr lnr-alarm"></i> <span>Duyuru</span></a></li>
+                        <li><a href="/Admin/GelirGider" class="active"><i class="lnr lnr-alarm"></i> <span>Gelir Gider</span></a></li>
                         <li>
-                            <a href="/Admin/AdminKategori" class="">Kategori Ekle</a>
+                            <a href="/Admin/AracTakipOrtalama" class="">Araç Takip Ortalama</a>
                         </li>
                         <li>
-                            <a href="/Admin/AdminUrun" class="">Ürün Ekle</a>
-                        </li>
-                        <li>
-                            <a href="/Admin/AdminPromosyon" class="">Promosyon Belirle</a>
+                            <a href="/Admin/GunlukKmSorgu" class="">Gunluk Km Sorgu</a>
                         </li>
                     </ul>
                 </nav>
@@ -97,10 +95,26 @@
                             <p class="panel-subtitle">Period: Oct 14, 2016 - Oct 21, 2016</p>
                         </div>
                         <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
 
-                            <input id="txtSirketAd" type="text" name="name" value="" />
-                            <input id="txtSirketAdres" type="text" name="name" value="" />
-                            <button id="btnGonder" type="submit">Gönder</button>
+
+                                    <div class="form-group">
+                                        <label for="signin-email" class="control-label sr-only">Araç Id :</label>
+                                        <input data-error="Email field is required" required="" name="kullaniciAd" class="form-control" id="signin-email" value="" placeholder="ID">
+                                    </div>
+
+
+                                    <button id="listele" type="submit">Listele</button>
+
+
+
+
+
+
+                                </div>
+                            </div>
+                            <canvas id="mycanvas" width="300" height="200"></canvas>
 
 
                         </div>
@@ -129,49 +143,83 @@
     <script src="~/Content/AdminContent/vendor/jquery.easy-pie-chart/easypiechart.min.js"></script>
     <script src="~/Content/AdminContent/vendor/chartist/js/chartist.min.js"></script>
     <script src="~/Content/AdminContent/scripts/klorofil-common.js"></script>
-    
+
+
+
 </body>
 </html>
-<script type="text/javascript">
-    function getParameterByName(name) {
-        var url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
-        results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
+<script>
     $(function () {
-
-        $("#btnGonder").click(function myfunction() {
-            var sirketAdi = $("#txtSirketAd").val();
-            var sirketAdresi = $("#txtSirketAdres").val();
-            var currentdate = new Date(); 
-            var datetime = currentdate.getFullYear() + "-"
-                + (currentdate.getMonth() + 1) + "-"
-                + currentdate.getDate() + " "
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes();
-           
-            console.log(datetime);
-            
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:25667/api/Sirket/",
-                dataType: "JSON",
-                data: { "Kullanicilar": [], "sirketAdi": sirketAdi, "sirketAdresi": sirketAdresi, "CreatedOn": datetime, "ModifiedOn": datetime, "ModifiedUserName": "firattunc" },
-                success: function (data) {
-
-                    console.log(data);
-                    
+        var id;
+        // create initial empty chart
+        var ctx_live = document.getElementById("mycanvas");
+        var myChart = new Chart(ctx_live, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    borderWidth: 1,
+                    borderColor: '#00c0ef',
+                    label: 'liveCount',
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "Chart.js - Dynamically Update Chart Via Ajax Requests",
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
                 }
-            })
+            }
+        });
+
+
+        // logic to get new data
+        var getData = function () {
+
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: 'http://localhost:25667/api/AracTakip/' + id,
+                success: function (data) {
+                    var id;
+                    $.each(data.Data, function (index, val) {
+
+                        myChart.data.labels.push(val.tarih);
+                        myChart.data.datasets[0].data.push(val.gunlukKm);
+
+                    })
+                    myChart.update();
+
+                }
+            });
+        };
+        var clear = function () {
+            for (var i = 0; i < 30; i++) {
+                myChart.data.labels.pop();
+                myChart.data.datasets[0].data.pop();
+            }
+        }
+        $("#listele").click(function myfunction() {
+            id = $("#signin-email").val();
+            clear();
+            getData();
+
 
         });
-        
+
+
+
 
     });
-   
-
 </script>

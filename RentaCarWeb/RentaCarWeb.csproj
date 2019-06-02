@@ -109,6 +109,7 @@
     <Content Include="Content\AdminContent\img\favicon.png" />
     <Content Include="Content\AdminContent\img\login-bg.jpg" />
     <Content Include="Content\AdminContent\img\logo-dark.png" />
+    <Content Include="Content\AdminContent\img\main-banner2.jpg" />
     <Content Include="Content\AdminContent\img\profile-bg.png" />
     <Content Include="Content\AdminContent\img\user-medium.png" />
     <Content Include="Content\AdminContent\img\user.png" />
@@ -168,6 +169,7 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\main-banner2.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\isotope.pkgd.min.js" />
     <Content Include="Content\js\jquery-2.2.4.min.js" />
@@ -268,6 +270,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Admin\AdminViewModels.cs" />
+    <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -281,10 +284,11 @@
     <Content Include="Views\Arac\AracGrid.cshtml" />
     <Content Include="Views\Arac\AracDetails.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\MusteriSorgu.cshtml" />
-    <Content Include="Views\Admin\SirketEkle.cshtml" />
-    <Content Include="Views\Admin\AracEkle.cshtml" />
+    <Content Include="Views\Admin\GunlukKmSorgu.cshtml" />
+    <Content Include="Views\Admin\AracTakipOrtalama.cshtml" />
+    <Content Include="Views\Admin\AracTeslim.cshtml" />
     <Content Include="Views\Admin\AdminLogin.cshtml" />
+    <Content Include="Views\Admin\GelirGider.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -294,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\AdminContent\NewFolder1\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

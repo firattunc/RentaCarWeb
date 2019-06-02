@@ -96,9 +96,34 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
 
+                                <ul class="profile-notification">
+                                    @if (Convert.ToInt32(Session["loginMusteri"]) == 1)
+                                    {
+
+                                        <li>
+                                            <div class="user-account-info">
+                                                <div class="user-account-info-controler">
+                                                    <div class="user-account-title">
+                                                        <div class="user-account-name">@Session["musteriAd"]</div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                        using (Html.BeginForm())
+                                        {
+                                            <li><button class="apply-now-btn" href="#" id="logout-button" type="submit" value="isLogin" name="btnLogout">Logout</button></li>
+                                        }
+
+                                    }
+                                </ul>
+
+                                </div>
+                              
+                            </div>
                         </div>
-                    </div>
                 </div>
                 <div class="main-menu-area bg-primaryText" id="sticker">
                     <div class="container">
